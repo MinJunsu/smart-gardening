@@ -1,12 +1,13 @@
 import { NextPage } from 'next';
 import React from 'react';
 import { useRouter } from 'next/router';
-import Back from '../../../components/back';
-import DiaryBox from '../../../components/diary-box';
+import Back from '../../../../components/back';
+import DiaryBox from '../../../../components/diary-box';
 import { useQuery } from 'react-query';
-import { getDiary } from '../../../components/api';
+import { getDiary } from '../../../../components/api';
+import Link from 'next/link';
 
-interface Diary {
+interface DiaryResponse {
   id: number;
   image: string;
   title: string;
@@ -16,7 +17,7 @@ interface Diary {
 
 const Diary: NextPage = () => {
   const router = useRouter();
-  const { data, isLoading } = useQuery<Diary[]>(['diary', router.query.id], () => getDiary(router.query.id));
+  const { data, isLoading } = useQuery<DiaryResponse[]>(['diary', router.query.id], () => getDiary(router.query.id));
   const section = router.query.section;
   if (isLoading) {
     return <div>Loading...</div>;
@@ -28,9 +29,16 @@ const Diary: NextPage = () => {
         <div className="flex flex-col w-full h-full">
           <h2 className="flex justify-center text-lg font-light py-2">{section} 구역</h2>
           <div className="w-full  flex justify-end px-5">
-            <button className="w-5 h-5 bg-[#646464] rounded-full flex justify-center items-center rounded-full text-sm font-normal text-white">
-              +
-            </button>
+            <Link
+              href={{
+                pathname: `/lists/${router.query.id}/diary/create`,
+                query: { section },
+              }}
+            >
+              <a className="w-5 h-5 bg-[#646464] rounded-full flex justify-center items-center rounded-full text-sm font-normal text-white">
+                +
+              </a>
+            </Link>
           </div>
           <div className="flex flex-row mt-5">
             <div className="relative w-6">

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 const Navigator: React.FC = () => {
   const router = useRouter();
-  console.log(router);
   return (
     <div className="flex justify-evenly items-center w-1/2 h-14 bg-white rounded-full shadow-2xl select-none cursor-pointer">
       <Link href="/">
