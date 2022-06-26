@@ -62,3 +62,11 @@ export async function waterCommand(id: number | undefined, command: CommandProps
     },
   });
 }
+
+export async function goToHome(command: CommandProps) {
+  const response = await axios.post(`${BASE_URL}/core/1/command/`, command, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

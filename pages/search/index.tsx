@@ -51,7 +51,7 @@ const Search: NextPage = () => {
         <input
           {...register('word', {
             required: true,
-            minLength: 3,
+            minLength: 1,
           })}
           className="outline-none flex-1 pr-3 placeholder:text-lg placeholder:flex placeholder:items-center"
           type="text"
@@ -67,7 +67,9 @@ const Search: NextPage = () => {
         ) : (
           data?.results?.map((flower) => {
             console.log(flower.main_image);
-            return <PlantDataBox key={flower.id} num={flower.id} src={'/img.png'} title={flower.name} description={flower.content} />;
+            return (
+              <PlantDataBox key={flower.id} num={flower.id} src={flower.main_image} title={flower.name} description={flower.content} />
+            );
           })
         )}
       </div>

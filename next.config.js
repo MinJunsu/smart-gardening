@@ -8,6 +8,6 @@ module.exports = withPWA({
     skipWaiting: true,
   },
   images: {
-    domains: ['127.0.0.1', 'localhost', 'www.smart-gardening.kro.kr'],
+    domains: ['127.0.0.1', 'localhost', 'www.smart-gardening.kro.kr', 'www.nihhs.go.kr'],
   },
 });

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useQuery } from 'react-query';
-import { getFlowersList, getMyStatus } from '../components/api';
+import { getFlowersList, getMyStatus, goToHome, waterCommand } from '../components/api';
 
 interface StatusResponse {
   temperature: number;
@@ -12,8 +12,15 @@ const Home: NextPage = () => {
   const { data, isLoading } = useQuery<StatusResponse>('status', () => getMyStatus(), { refetchInterval: 1000 * 60 * 5 });
   const text = '집으로 이동하기';
 
-  const onClick = () => {};
-
+  const onClick = async () => {
+    alert('홈베이스로 이동시키겠습니다!');
+    await goToHome({
+      location: '1',
+      command: 'home',
+      command_kor: `홈베이스로 이동을 완료하였습니다!`,
+      is_done: false,
+    });
+  };
   if (isLoading) {
     return (
       <div className="flex h-full w-full justify-center items-center">
@@ -24,9 +31,11 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex w-full flex-col overflow-y-hidden">
-      <span onClick={() => {}} className="text-2xl flex justify-center my-16">
-        {text}
-      </span>
+      <div className="flex m-auto rounded-full border-[1px] my-16 w-40 h-10 justify-center items-center border-gray-500">
+        <span onClick={onClick} className="text-lg">
+          {text}
+        </span>
+      </div>
       <span className="w-full text-8xl flex justify-center items-baseline mt-16 mb-5">
         {data?.temperature}
         <span className="text-4xl font-light">°C</span>
