@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = `http://127.0.0.1:8000/api/v1`;
+// const BASE_URL = `${process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/v1' : 'http://www.smart-gardening.kro.kr:8000'}`;
+const BASE_URL = `${
+  process.env.NODE_ENV === 'development' ? 'http://www.smart-gardening.kro.kr:8000/api/v1' : 'http://www.smart-gardening.kro.kr:8000/api/v1'
+}`;
 
 export function getFlowersList(word: string | undefined) {
   if (word) {
@@ -43,4 +46,19 @@ export function createDiary(id: string | string[] | undefined, diaryForm: DiaryF
       },
     })
     .then((response) => response);
+}
+
+export interface CommandProps {
+  location: string | undefined;
+  command: string;
+  command_kor: string;
+  is_done: boolean;
+}
+
+export async function waterCommand(id: number | undefined, command: CommandProps) {
+  const response = await axios.post(`${BASE_URL}/core/1/command/`, command, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }

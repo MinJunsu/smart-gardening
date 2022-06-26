@@ -5,12 +5,14 @@ import { getFlowersList, getMyStatus } from '../components/api';
 interface StatusResponse {
   temperature: number;
   humidity: number;
-  co2: number;
+  illuminance: number;
 }
 
 const Home: NextPage = () => {
   const { data, isLoading } = useQuery<StatusResponse>('status', () => getMyStatus(), { refetchInterval: 1000 * 60 * 5 });
-  const text = '비가 올 예정입니다. \n' + '창문을 닫아주세요.';
+  const text = '집으로 이동하기';
+
+  const onClick = () => {};
 
   if (isLoading) {
     return (
@@ -22,7 +24,9 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex w-full flex-col overflow-y-hidden">
-      <span className="text-2xl flex justify-center my-16">{text}</span>
+      <span onClick={() => {}} className="text-2xl flex justify-center my-16">
+        {text}
+      </span>
       <span className="w-full text-8xl flex justify-center items-baseline mt-16 mb-5">
         {data?.temperature}
         <span className="text-4xl font-light">°C</span>
@@ -64,8 +68,8 @@ const Home: NextPage = () => {
             </defs>
           </svg>
           <span className="font-light text-3xl">
-            {data?.co2}
-            <span className="font-thin text-sm">ppm</span>
+            {data?.illuminance}
+            <span className="font-thin text-sm">nit</span>
           </span>
         </div>
       </div>

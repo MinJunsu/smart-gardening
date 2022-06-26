@@ -29,7 +29,6 @@ const Search: NextPage = () => {
   const [word, setWord] = useState<string>();
   const { data, isLoading } = useQuery<FlowersResponse>(['flowers', word], () => getFlowersList(word));
   const onValid = (data: SearchForm) => {
-    console.log(data);
     setWord(data.word);
     reset();
   };

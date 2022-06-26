@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useQuery } from 'react-query';
 import Link from 'next/link';
-import { getGarden } from '../../../components/api';
+import { getGarden, waterCommand } from '../../../components/api';
+import axios from 'axios';
 
 interface GardenResponse {
   id: number;
@@ -23,6 +24,15 @@ const ListDetail: React.FC = () => {
   if (isLoading) {
     return <div></div>;
   }
+
+  const onWaterClick = async () => {
+    await waterCommand(data?.id, {
+      location: data?.section,
+      command: 'water',
+      command_kor: `${data?.id}번 위치에 물주기를 완료하였습니다! `,
+      is_done: false,
+    });
+  };
 
   return (
     <div className="w-full h-full py-5">
@@ -67,11 +77,21 @@ const ListDetail: React.FC = () => {
             <span className="font-thin text-xl text-gray-600">{data?.humidity}%RH</span>
           </div>
         </div>
-        <button className="w-24 h-10 border-gray-300 border-[2px] border-opacity-30 rounded-full shadow-2xl text-gray-400 text-md hover:text-gray-500 hover:border-gray-500 hover:border-opacity-60 select-none">
+        <button
+          onClick={onWaterClick}
+          className="w-24 h-10 border-gray-300 border-[2px] border-opacity-30 rounded-full shadow-2xl text-gray-400 text-md hover:text-gray-500 hover:border-gray-500 hover:border-opacity-60 select-none"
+        >
           물주기
         </button>
         <div className="flex flex-row justify-end items-end gap-3 pb-2 text-sm">
-          <span className="text-gray-400 border-b-[1px] border-gray-400 select-none cursor-pointer">타임랩스 보기</span>
+          <Link
+            href={{
+              pathname: `/lists/${data?.id}/timelapse`,
+              query: { section: data?.section },
+            }}
+          >
+            <a className="text-gray-400 border-b-[1px] border-gray-400 select-none cursor-pointer">타임랩스 보기</a>
+          </Link>
           <Link
             href={{
               pathname: `/lists/${data?.id}/diary`,
