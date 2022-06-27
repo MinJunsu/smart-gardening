@@ -19,18 +19,20 @@ interface GardenResponse {
 
 const ListDetail: React.FC = () => {
   const router = useRouter();
-  const { data, isLoading } = useQuery<GardenResponse>(['garden', router.query.id], () => getGarden(router.query.id));
+  const { data, isLoading } = useQuery<GardenResponse>(['garden', router.query.id], () => getGarden(router.query.id), {
+    refetchInterval: 1000 * 5,
+  });
 
   if (isLoading) {
     return <div></div>;
   }
 
   const onWaterClick = async () => {
-    alert(`${data?.id}에 물을 주겠습니다!`);
-    await waterCommand(data?.id, {
+    alert(`${data?.name}에 물을 주겠습니다!`);
+    await waterCommand({
       location: data?.section,
       command: 'water',
-      command_kor: `${data?.id}번 위치에 물주기를 완료하였습니다! `,
+      command_kor: `${data?.name}에 물주기를 완료하였습니다! `,
       is_done: false,
     });
   };
