@@ -21,7 +21,7 @@ const Lists: NextPage = () => {
         return (
           <PlantBox
             key={garden.id}
-            num={garden.section}
+            num={garden.id}
             src={garden.image}
             district={`${garden.section} 구역`}
             title={garden.name}
