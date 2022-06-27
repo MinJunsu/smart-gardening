@@ -9,7 +9,7 @@ interface StatusResponse {
 }
 
 const Home: NextPage = () => {
-  const { data, isLoading } = useQuery<StatusResponse>('status', () => getMyStatus(), { refetchInterval: 1000 * 60 * 5 });
+  const { data, isLoading } = useQuery<StatusResponse>('status', () => getMyStatus(), { refetchInterval: 1000 * 5 });
   const text = '집으로 이동하기';
 
   const onClick = async () => {

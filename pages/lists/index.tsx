@@ -13,7 +13,7 @@ interface Garden {
 }
 
 const Lists: NextPage = () => {
-  const { data, isLoading } = useQuery<Garden[]>('gardens', () => getGardens());
+  const { data, isLoading } = useQuery<Garden[]>('gardens', () => getGardens(), { refetchInterval: 1000 * 5 });
   console.log(data);
   return (
     <div className="flex flex-col gap-5 mt-10 overflow-y-scroll">
