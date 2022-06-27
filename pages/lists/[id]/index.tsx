@@ -40,7 +40,7 @@ const ListDetail: React.FC = () => {
   const onMoveClick = async () => {
     alert(`${data?.name}로 이동하겠습니다!`);
     await goToHome({
-      location: String(data?.id),
+      location: String(data?.section),
       command: 'move',
       command_kor: `${data?.name}로 이동을 완료하였습니다!`,
       is_done: false,
