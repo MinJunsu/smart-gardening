@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const onClick = async () => {
     alert('홈베이스로 이동시키겠습니다!');
     await goToHome({
-      location: '1',
+      location: '홈베이스',
       command: 'home',
       command_kor: `홈베이스로 이동을 완료하였습니다!`,
       is_done: false,
