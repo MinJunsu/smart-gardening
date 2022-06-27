@@ -27,7 +27,7 @@ const Home: NextPage = () => {
     await goToHome({
       location: '1',
       command: 'call',
-      command_kor: `홈베이스로 이동을 완료하였습니다!`,
+      command_kor: `전화 걸기를 완료하였습니다!`,
       is_done: false,
     });
   };
