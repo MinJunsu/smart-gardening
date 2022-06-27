@@ -21,6 +21,16 @@ const Home: NextPage = () => {
       is_done: false,
     });
   };
+
+  const onCallClick = async () => {
+    alert('나에게 전화를 걸겠습니다!');
+    await goToHome({
+      location: '1',
+      command: 'call',
+      command_kor: `홈베이스로 이동을 완료하였습니다!`,
+      is_done: false,
+    });
+  };
   if (isLoading) {
     return (
       <div className="flex h-full w-full justify-center items-center">
@@ -31,10 +41,17 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex w-full flex-col overflow-y-hidden">
-      <div className="flex m-auto rounded-full border-[1px] my-16 w-40 h-10 justify-center items-center border-gray-500">
-        <span onClick={onClick} className="text-lg">
-          {text}
-        </span>
+      <div className="flex flex-row justify-center">
+        <div className="flex m-auto rounded-full border-[1px] my-16 w-40 h-10 justify-center items-center border-gray-500">
+          <span onClick={onClick} className="text-lg">
+            {text}
+          </span>
+        </div>
+        <div className="flex m-auto rounded-full border-[1px] my-16 w-40 h-10 justify-center items-center border-gray-500">
+          <span onClick={onCallClick} className="text-lg">
+            나에게 전화 걸기
+          </span>
+        </div>
       </div>
       <span className="w-full text-8xl flex justify-center items-baseline mt-16 mb-5">
         {data?.temperature}

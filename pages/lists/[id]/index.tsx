@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useQuery } from 'react-query';
 import Link from 'next/link';
-import { getGarden, waterCommand } from '../../../components/api';
+import { getGarden, goToHome, waterCommand } from '../../../components/api';
 import axios from 'axios';
 
 interface GardenResponse {
@@ -35,6 +35,16 @@ const ListDetail: React.FC = () => {
     });
   };
 
+  const onMoveClick = async () => {
+    alert(`${data?.id}로 이동하겠습니다!`);
+    await goToHome({
+      location: String(data?.id),
+      command: 'move',
+      command_kor: `${data?.id}로 이동을 완료하였습니다!`,
+      is_done: false,
+    });
+  };
+
   return (
     <div className="w-full h-full py-5">
       <div className="flex flex-col w-4/5 h-5/6 m-auto bg-white items-center justify-evenly rounded-3xl shadow-2xl gap-2">
@@ -50,7 +60,15 @@ const ListDetail: React.FC = () => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </div>
-        <span className="block text-xl text-gray-500  font-normal">{data?.section} 구역</span>
+        <div className="flex flex-row items-end space-x-3">
+          <span className="block text-xl text-gray-500  font-normal">{data?.section} 구역</span>
+          <button
+            onClick={onMoveClick}
+            className="w-14 h-5 border-gray-500 border-[1px] border-opacity-30 rounded-full shadow-2xl text-gray-400 text-xs hover:text-gray-500 hover:border-gray-500 hover:border-opacity-60 select-none"
+          >
+            이동하기
+          </button>
+        </div>
         <div className="relative">
           <Image className="rounded-2xl" src={data?.image ?? ''} width={200} height={200} />
           {/*<div className="absolute -right-4 -bottom-4 rounded-full bg-white w-12 h-12 shadow-xl">*/}
