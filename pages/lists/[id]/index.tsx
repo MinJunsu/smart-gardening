@@ -30,7 +30,7 @@ const ListDetail: React.FC = () => {
   const onWaterClick = async () => {
     alert(`${data?.name}에 물을 주겠습니다!`);
     await waterCommand({
-      location: '2',
+      location: data?.section,
       command: 'water',
       command_kor: `${data?.name}에 물주기를 완료하였습니다! `,
       is_done: false,
